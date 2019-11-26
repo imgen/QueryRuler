@@ -38,9 +38,21 @@ namespace QueryRuler
         }
 
         [Fact]
+        public async Task GetTop500TransitTimesWithoutOrdering()
+        {
+            await MeasureWithTopQuery(500);
+        }
+
+        [Fact]
         public async Task GetTop500TransitTimesEfficiently()
         {
             await MeasureWithTopQueryInSelectTopMaxSubQuery(500, OrderByContainerNumber);
+        }
+
+        [Fact]
+        public async Task GetTop500TransitTimesEfficientlyWithoutOrdering()
+        {
+            await MeasureWithTopQueryInSelectTopMaxSubQuery(500);
         }
     }
 }
