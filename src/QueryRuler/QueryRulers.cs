@@ -31,7 +31,7 @@ namespace QueryRuler
             for(int i = 0; i < WarmUpTimes; i++)
             {
                 await TinyProfiler.ProfileAsync($"executing warm-up query the {i + 1}th time",
-                    () => dal.QueryDynamicAsync(query),
+                    () => dal.QueryDynamicAsync(query, commandTimeout),
                     _messageProcessor);
                 await Task.Delay(ExecutionInterval);
             }
@@ -39,7 +39,7 @@ namespace QueryRuler
             for(int i = 0; i < ExecutionTimes; i++)
             {
                 await TinyProfiler.ProfileAsync($"executing query the {i + 1}th time", 
-                    () => dal.QueryDynamicAsync(query), 
+                    () => dal.QueryDynamicAsync(query, commandTimeout), 
                     _messageProcessor, 
                     ProcessElapsedTime);
                 if (i < ExecutionTimes - 1)
