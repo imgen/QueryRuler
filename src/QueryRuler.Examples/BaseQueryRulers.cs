@@ -7,7 +7,5 @@ namespace QueryRuler
         protected override string ConnectionString => "Data Source=(local);Initial Catalog=ProductionGravity;Integrated Security=True;MultipleActiveResultSets=True";
 
         protected BaseQueryRulers(ITestOutputHelper testOutputHelper): base(testOutputHelper.WriteLine) { }
-
-
     }
 }
