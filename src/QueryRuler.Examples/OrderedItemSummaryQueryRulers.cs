@@ -4,14 +4,12 @@ using Xunit.Abstractions;
 
 namespace QueryRuler
 {
-    public class OrderedItemSummaryQueryRulers: QueryRulers
+    public class OrderedItemSummaryQueryRulers: BaseQueryRulers
     {
-        public OrderedItemSummaryQueryRulers(ITestOutputHelper testOutputHelper): base(testOutputHelper) 
-        {
-            TableName = "vw_OrderedItemSummary";
-        }
+        public OrderedItemSummaryQueryRulers(ITestOutputHelper testOutputHelper): base(testOutputHelper) { }
 
-        
+        protected override string TableName => "vw_OrderedItemSummary";
+
         [Fact]
         public async Task GetCountOfOrderedItemSummaries()
         {

@@ -5,12 +5,11 @@ using Xunit.Abstractions;
 
 namespace QueryRuler
 {
-    public class VendorDocumentHubQueryRulers: QueryRulers
+    public class VendorDocumentHubQueryRulers: BaseQueryRulers
     {
-        public VendorDocumentHubQueryRulers(ITestOutputHelper testOutputHelper): base(testOutputHelper) 
-        {
-            TableName = "vw_VendorDocumentHub";
-        }
+        public VendorDocumentHubQueryRulers(ITestOutputHelper testOutputHelper): base(testOutputHelper) { }
+
+        protected override string TableName => "vw_VendorDocumentHub";
 
         [Fact]
         public async Task GetCountOfVendorDocuments()

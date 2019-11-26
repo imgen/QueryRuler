@@ -1,0 +1,1 @@
+﻿Separate XxxQueryRulers to a separate project

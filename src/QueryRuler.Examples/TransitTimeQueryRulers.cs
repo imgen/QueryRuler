@@ -4,12 +4,11 @@ using Xunit.Abstractions;
 
 namespace QueryRuler
 {
-    public class TransitTimeQueryRulers: QueryRulers
+    public class TransitTimeQueryRulers: BaseQueryRulers
     {
-        public TransitTimeQueryRulers(ITestOutputHelper testOutputHelper) : base(testOutputHelper) 
-        {
-            TableName = "vw_TransitTime";
-        }
+        public TransitTimeQueryRulers(ITestOutputHelper testOutputHelper) : base(testOutputHelper) { }
+
+        protected override string TableName => "vw_TransitTime";
 
         [Fact]
         public async Task GetCountOfTransitTimes()

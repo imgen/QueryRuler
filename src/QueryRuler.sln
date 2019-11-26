@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dakata.MySql", "Dakata.MySq
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dakata.SqlServer", "Dakata.SqlServer\Dakata.SqlServer.csproj", "{C397BC39-614F-45FC-B59A-3903C35DDCE7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QueryRuler.Examples", "QueryRuler.Examples\QueryRuler.Examples.csproj", "{B0E97041-CAE3-4DFD-82EC-1CEBB087E4EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C397BC39-614F-45FC-B59A-3903C35DDCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C397BC39-614F-45FC-B59A-3903C35DDCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C397BC39-614F-45FC-B59A-3903C35DDCE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E97041-CAE3-4DFD-82EC-1CEBB087E4EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E97041-CAE3-4DFD-82EC-1CEBB087E4EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E97041-CAE3-4DFD-82EC-1CEBB087E4EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E97041-CAE3-4DFD-82EC-1CEBB087E4EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
