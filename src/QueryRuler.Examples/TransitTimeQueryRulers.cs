@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using SqlKata;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -9,6 +10,8 @@ namespace QueryRuler
         public TransitTimeQueryRulers(ITestOutputHelper testOutputHelper) : base(testOutputHelper) { }
 
         protected override string TableName => "vw_TransitTime";
+
+        private Query OrderByContainerNumber(Query query) => query.OrderBy("ContainerNumber");
 
         [Fact]
         public async Task GetCountOfTransitTimes()
@@ -29,15 +32,15 @@ namespace QueryRuler
         }
 
         [Fact]
-        public async Task GetTop500VendorTransitTimes()
+        public async Task GetTop500TransitTimes()
         {
-            await MeasureWithTopQuery(500, OrderByPurchaseOrderNumber);
+            await MeasureWithTopQuery(500, OrderByContainerNumber);
         }
 
         [Fact]
         public async Task GetTop500TransitTimesEfficiently()
         {
-            await MeasureWithTopQueryInSelectTopMaxSubQuery(500, OrderByPurchaseOrderNumber);
+            await MeasureWithTopQueryInSelectTopMaxSubQuery(500, OrderByContainerNumber);
         }
     }
 }
