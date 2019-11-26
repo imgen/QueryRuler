@@ -19,7 +19,7 @@ namespace QueryRuler
         [Fact]
         public async Task GetDistinctedCountOfOrderedItemSummaries()
         {
-            await MeasureWithQuery(query => query.Distinct().AsCount());
+            await MeasureWithQuery(query => query.Distinct().AsCount(), commandTimeout: 300);
         }
 
         [Fact]

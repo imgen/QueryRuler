@@ -12,7 +12,7 @@ namespace QueryRuler
     {
         private readonly Action<string> _messageProcessor;
 
-        protected abstract string TableName { get; } 
+        protected virtual string TableName { get; } = string.Empty;
 
         protected abstract string ConnectionString { get; }
 
@@ -82,9 +82,35 @@ namespace QueryRuler
             await Measure(dal, newQuery, commandTimeout);
         }
 
+        protected async Task MeasureWithRawSql(string sql, int? commandTimeout = null)
+        {
+            var query = new Query().FromRaw(sql);
+            var dal = new BaseDal(TableName, CreateDapperConnection());
+            await Measure(dal, query, commandTimeout);
+        }
+
         protected async Task MeasureWithQuery(Func<Query, Query> queryBuilder = null, int? commandTimeout = null, string tableName = null)
         {
             await MeasureWithDalAndQuery((dal, query) => queryBuilder?.Invoke(query), commandTimeout, tableName);
+        }
+
+        protected async Task MeasureWithTopQuery(int topCount, Func<Query, Query> queryBuilder = null, int? commandTimeout = null, string tableName = null)
+        {
+            await MeasureWithDalAndQuery((dal, query) => 
+            {
+                var newQuery = queryBuilder?.Invoke(query)?? query;
+                return newQuery.Take(topCount);
+            }, commandTimeout, tableName);
+        }
+
+        protected async Task MeasureWithTopQueryInSelectTopMaxSubQuery(int topCount, Func<Query, Query> queryBuilder = null, int? commandTimeout = null, string tableName = null)
+        {
+            await MeasureWithTopQuery(topCount, query =>
+            {
+                var newQuery = queryBuilder?.Invoke(query) ?? query;
+                newQuery.Take(int.MaxValue).As("q");
+                return new Query().From(newQuery);
+            }, commandTimeout, tableName);
         }
     }
 }

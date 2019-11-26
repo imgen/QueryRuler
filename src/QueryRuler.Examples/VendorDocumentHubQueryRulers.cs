@@ -44,18 +44,25 @@ namespace QueryRuler
         [Fact]
         public async Task GetTop5000VendorDocuments()
         {
-            await MeasureWithQuery(query => query.OrderBy("PurchaseOrderNumber").Take(5000));
+            await MeasureWithTopQuery(5000, query => query.OrderBy("PurchaseOrderNumber"));
         }
 
         [Fact]
         public async Task GetTop5000VendorDocumentsEfficiently()
         {
-            await MeasureWithQuery(query => 
-            {
-                query.OrderBy("PurchaseOrderNumber").Take(int.MaxValue).As("q");
-                var outerQuery = new Query().From(query);
-                return outerQuery.Take(5000);
-            });
+            await MeasureWithTopQueryInSelectTopMaxSubQuery(5000, query => query.OrderBy("PurchaseOrderNumber"));
+        }
+
+        [Fact]
+        public async Task GetTop500VendorDocuments()
+        {
+            await MeasureWithTopQuery(500, query => query.OrderBy("PurchaseOrderNumber"));
+        }
+
+        [Fact]
+        public async Task GetTop500VendorDocumentsEfficiently()
+        {
+            await MeasureWithTopQueryInSelectTopMaxSubQuery(500, query => query.OrderBy("PurchaseOrderNumber"));
         }
     }
 }
