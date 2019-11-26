@@ -13,13 +13,31 @@ namespace QueryRuler
         [Fact]
         public async Task GetCountOfTransitTimes()
         {
-            await MeasureWithQuery(query => query.AsCount());
+            await MeasureWithCountQuery();
         }
 
         [Fact]
         public async Task GetRoughCountOfTransitTimes()
         {
-            await MeasureWithQuery(query => query.WhereRaw("ShipmentItemId % 10 = 1").AsCount());
+            await MeasureWithCountQuery(query => query.WhereRaw("ShipmentItemId % 10 = 1"));
+        }
+
+        [Fact]
+        public async Task GetDistinctedCountOfTransitTimes()
+        {
+            await MeasureWithDistinctCountQuery();
+        }
+
+        [Fact]
+        public async Task GetTop500VendorTransitTimes()
+        {
+            await MeasureWithTopQuery(500, OrderByPurchaseOrderNumber);
+        }
+
+        [Fact]
+        public async Task GetTop500TransitTimesEfficiently()
+        {
+            await MeasureWithTopQueryInSelectTopMaxSubQuery(500, OrderByPurchaseOrderNumber);
         }
     }
 }

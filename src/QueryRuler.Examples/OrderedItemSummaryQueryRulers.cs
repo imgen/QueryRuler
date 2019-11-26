@@ -13,19 +13,19 @@ namespace QueryRuler
         [Fact]
         public async Task GetCountOfOrderedItemSummaries()
         {
-            await MeasureWithQuery(query => query.AsCount());
+            await MeasureWithCountQuery();
         }
 
         [Fact]
         public async Task GetDistinctedCountOfOrderedItemSummaries()
         {
-            await MeasureWithQuery(query => query.Distinct().AsCount(), commandTimeout: 300);
+            await MeasureWithDistinctCountQuery(commandTimeout: 300);
         }
 
         [Fact]
         public async Task GetRoughCountOfOrderedItemSummaries()
         {
-            await MeasureWithQuery(query => query.WhereRaw("PurchaseOrderItemId % 10 = 1").AsCount());
+            await MeasureWithCountQuery(query => query.WhereRaw("PurchaseOrderItemId % 10 = 1"));
         }
     }
 }

@@ -94,6 +94,33 @@ namespace QueryRuler
             await MeasureWithDalAndQuery((dal, query) => queryBuilder?.Invoke(query), commandTimeout, tableName);
         }
 
+        protected async Task MeasureWithCountQuery(Func<Query, Query> queryBuilder = null, int? commandTimeout = null, string tableName = null)
+        {
+            await MeasureWithDalAndQuery((dal, query) =>
+            {
+                var newQuery = queryBuilder?.Invoke(query) ?? query;
+                return newQuery.AsCount();
+            }, commandTimeout, tableName);
+        }
+
+        protected async Task MeasureWithDistinctQuery(Func<Query, Query> queryBuilder = null, int? commandTimeout = null, string tableName = null)
+        {
+            await MeasureWithDalAndQuery((dal, query) =>
+            {
+                var newQuery = queryBuilder?.Invoke(query) ?? query;
+                return newQuery.Distinct();
+            }, commandTimeout, tableName);
+        }
+
+        protected async Task MeasureWithDistinctCountQuery(Func<Query, Query> queryBuilder = null, int? commandTimeout = null, string tableName = null)
+        {
+            await MeasureWithCountQuery(query =>
+            {
+                var newQuery = queryBuilder?.Invoke(query) ?? query;
+                return newQuery.Distinct();
+            }, commandTimeout, tableName);
+        }
+
         protected async Task MeasureWithTopQuery(int topCount, Func<Query, Query> queryBuilder = null, int? commandTimeout = null, string tableName = null)
         {
             await MeasureWithDalAndQuery((dal, query) => 

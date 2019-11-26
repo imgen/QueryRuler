@@ -13,19 +13,19 @@ namespace QueryRuler
         [Fact]
         public async Task GetCountOfVendorDocuments()
         {
-            await MeasureWithQuery(query => query.AsCount());
+            await MeasureWithCountQuery();
         }
 
         [Fact]
         public async Task GetDistinctdCountOfVendorDocuments()
         {
-            await MeasureWithQuery(query => query.Distinct().AsCount());
+            await MeasureWithDistinctCountQuery();
         }
 
         [Fact]
         public async Task GetRoughCountOfVendorDocuments()
         {
-            await MeasureWithQuery(query => query.WhereRaw("PurchaseOrderItemId % 10 = 1").AsCount());
+            await MeasureWithCountQuery(query => query.WhereRaw("PurchaseOrderItemId % 10 = 1"));
         }
 
         [Fact]
@@ -37,31 +37,33 @@ namespace QueryRuler
         [Fact]
         public async Task GetAllDistinctedDocuments()
         {
-            await MeasureWithQuery(query => query.Distinct());
+            await MeasureWithDistinctQuery();
         }
+
+        
 
         [Fact]
         public async Task GetTop5000VendorDocuments()
         {
-            await MeasureWithTopQuery(5000, query => query.OrderBy("PurchaseOrderNumber"));
+            await MeasureWithTopQuery(5000, OrderByPurchaseOrderNumber);
         }
 
         [Fact]
         public async Task GetTop5000VendorDocumentsEfficiently()
         {
-            await MeasureWithTopQueryInSelectTopMaxSubQuery(5000, query => query.OrderBy("PurchaseOrderNumber"));
+            await MeasureWithTopQueryInSelectTopMaxSubQuery(5000, OrderByPurchaseOrderNumber);
         }
 
         [Fact]
         public async Task GetTop500VendorDocuments()
         {
-            await MeasureWithTopQuery(500, query => query.OrderBy("PurchaseOrderNumber"));
+            await MeasureWithTopQuery(500, OrderByPurchaseOrderNumber);
         }
 
         [Fact]
         public async Task GetTop500VendorDocumentsEfficiently()
         {
-            await MeasureWithTopQueryInSelectTopMaxSubQuery(500, query => query.OrderBy("PurchaseOrderNumber"));
+            await MeasureWithTopQueryInSelectTopMaxSubQuery(500, OrderByPurchaseOrderNumber);
         }
     }
 }

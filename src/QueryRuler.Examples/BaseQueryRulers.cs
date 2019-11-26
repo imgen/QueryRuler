@@ -1,4 +1,5 @@
-﻿using Xunit.Abstractions;
+﻿using SqlKata;
+using Xunit.Abstractions;
 
 namespace QueryRuler
 {
@@ -7,5 +8,7 @@ namespace QueryRuler
         protected override string ConnectionString => "Data Source=(local);Initial Catalog=ProductionGravity;Integrated Security=True;MultipleActiveResultSets=True";
 
         protected BaseQueryRulers(ITestOutputHelper testOutputHelper): base(testOutputHelper.WriteLine) { }
+
+        protected Query OrderByPurchaseOrderNumber(Query query) => query.OrderBy("PurchaseOrderNumber");
     }
 }
