@@ -72,7 +72,7 @@ namespace QueryRuler
         private static void PrintProfileMessage(Stopwatch watch, string operationName, Action<string> printer = null)
         {
             watch.Stop();
-            printer = printer ?? Console.WriteLine;
+            printer ??= Console.WriteLine;
             var oldForeColor = Console.ForegroundColor;
             var isConsoleWriteLine = printer == Console.WriteLine;
             var duration = FormatTimeSpan(watch.Elapsed);
