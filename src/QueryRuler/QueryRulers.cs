@@ -18,13 +18,15 @@ namespace QueryRuler
 
         protected QueryRulers(Action<string> messageProcessor) => _messageProcessor = messageProcessor;
 
-        protected const int ExecutionTimes = 3, WarmUpTimes = 1;
-        protected static readonly TimeSpan ExecutionInterval = TimeSpan.FromSeconds(2);
+        protected virtual int ExecutionTimes => 3;
+        protected virtual int WarmUpTimes => 1;
+        protected virtual TimeSpan ExecutionInterval => TimeSpan.FromSeconds(2);
 
         protected async Task Measure((BaseDal dal, Query query) dalAndQuery)
         {
             await Measure(dalAndQuery.dal, dalAndQuery.query);
         }
+
         protected async Task Measure(BaseDal dal, Query query, int? commandTimeout = null)
         {
             var elapsedTimes = new List<TimeSpan>();

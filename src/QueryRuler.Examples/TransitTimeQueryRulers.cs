@@ -54,5 +54,11 @@ namespace QueryRuler
         {
             await MeasureWithTopQueryInSelectTopMaxSubQuery(500);
         }
+
+        [Fact]
+        public async Task GetAllTransitTimesWithoutOrdering()
+        {
+            await MeasureWithQuery();
+        }
     }
 }
